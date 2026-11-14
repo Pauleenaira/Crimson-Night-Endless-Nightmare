@@ -18,38 +18,53 @@ const CONFIG = {
 
     // B. RUNNER
     runner: {
-        x: 145,                 // Horizontal position of the runner's bottom-center anchor.
-        yOffset: 0,             // Move the runner's ground anchor down (+) or up (-).
-        maxWidth: 150,          // Maximum displayed image width.
-        maxHeight: 200,         // Maximum displayed image height.
-        imageOffsetX: 0,        // Move the rendered image and its hitbox horizontally.
-        imageOffsetY: 0,        // Move the rendered image and its hitbox vertically.
-        jumpStrength: 650,      // Initial upward jump speed; larger values make higher jumps.
-        gravity: 1750,          // Downward acceleration; larger values make the runner land sooner.
-        hitboxPaddingX: 50,  // Shrink the collision area from both left and right sides.
-        hitboxPaddingY: 40   // Shrink the collision area from both top and bottom.
+        x: 145,                 
+        yOffset: 0,             
+        maxWidth: 150,          
+        maxHeight: 250,         
+        imageOffsetX: 0,        
+        imageOffsetY: 0,        
+        jumpStrength: 750,      
+        gravity: 1750,          
+        hitboxPaddingX: 50,  
+        hitboxPaddingY: 40,
+        // --- SPRITE ANIMATION SETTINGS ---
+        spriteCols: 5,          
+        spriteRows: 2,          
+        totalFrames: 10,        
+        animationSpeed: 1      
     },
 
-    // C. OBSTACLE 1
+    // C. OBSTACLE 1 (Campfire)
     obstacle1: {
-        maxWidth: 150,           // Maximum displayed image width.
-        maxHeight: 200,        // Maximum displayed image height.
-        imageOffsetX: 0,        // Move the image and hitbox horizontally.
-        imageOffsetY: 20,      // Move the image and hitbox vertically.
-        groundOffset: 10,        // Move the bottom anchor down (+) or up (-) from the ground.
-        hitboxPaddingX: 30,  // Shrink the collision area from both sides.
-        hitboxPaddingY: 15  // Shrink the collision area from top and bottom.
+        maxWidth: 150,           
+        maxHeight: 200,        
+        imageOffsetX: 0,        
+        imageOffsetY: 20,      
+        groundOffset: 10,        
+        hitboxPaddingX: 30,  
+        hitboxPaddingY: 15,
+        // --- SPRITE ANIMATION SETTINGS ---
+        spriteCols: 4,          // Campfire grid is 4x2
+        spriteRows: 2,          
+        totalFrames: 8,        
+        animationSpeed: 12      
     },
 
-    // D. OBSTACLE 2
+    // D. OBSTACLE 2 (Shadow Monster)
     obstacle2: {
-        maxWidth: 200,          // Maximum displayed image width.
-        maxHeight: 300,        // Maximum displayed image height.
-        imageOffsetX: 0,        // Move the image and hitbox horizontally.
-        imageOffsetY: 20,      // Move the image and hitbox vertically.
-        groundOffset: 0,        // Move the bottom anchor down (+) or up (-) from the ground.
-        hitboxPaddingX: 35,  // Shrink the collision area from both sides.
-        hitboxPaddingY: 5   // Shrink the collision area from top and bottom.
+        maxWidth: 200,          
+        maxHeight: 300,        
+        imageOffsetX: 0,        
+        imageOffsetY: 20,      
+        groundOffset: 0,        
+        hitboxPaddingX: 35,  
+        hitboxPaddingY: 5,
+        // --- SPRITE ANIMATION SETTINGS ---
+        spriteCols: 4,          // Monster grid is 4x2
+        spriteRows: 2,          
+        totalFrames: 8,        
+        animationSpeed: 10      
     },
 
     // E. BACKGROUND
@@ -1424,21 +1439,60 @@ const CONFIG = {
     // 8. DRAWING AND HITBOX VISUALIZATION
     // ============================================
 
-    function drawRunner() {
+   function drawRunner() {
         const layout = getRunnerLayout();
+        const source = getAssetSource("runner");
 
-        drawAsset(
-            "runner",
-            layout,
-            runnerAnimationTime
+        if (!source || layout.width <= 0 || layout.height <= 0) return;
+
+        if (assetImages.runner === null) {
+            drawAsset("runner", layout, runnerAnimationTime);
+            return;
+        }
+
+        const speed = CONFIG.runner.animationSpeed;
+        const currentFrame = runnerIsJumping 
+            ? 3 
+            : Math.floor(runnerAnimationTime * speed) % CONFIG.runner.totalFrames;
+
+        const frameWidth = source.width / CONFIG.runner.spriteCols;
+        const frameHeight = source.height / CONFIG.runner.spriteRows;
+        
+        const col = currentFrame % CONFIG.runner.spriteCols;
+        const row = Math.floor(currentFrame / CONFIG.runner.spriteCols);
+
+        ctx.drawImage(
+            source,
+            col * frameWidth, row * frameHeight, frameWidth, frameHeight,
+            layout.x, layout.y, layout.width, layout.height
         );
     }
 
     function drawObstacles() {
         obstacles.forEach((obstacle) => {
-            drawAsset(
-                obstacle.type,
-                getObstacleLayout(obstacle)
+            const layout = getObstacleLayout(obstacle);
+            const source = getAssetSource(obstacle.type);
+            const settings = CONFIG[obstacle.type];
+
+            if (!source || layout.width <= 0 || layout.height <= 0) return;
+
+            if (assetImages[obstacle.type] === null || !settings.totalFrames) {
+                drawAsset(obstacle.type, layout);
+                return;
+            }
+
+            const currentFrame = Math.floor(elapsedTime * settings.animationSpeed) % settings.totalFrames;
+
+            const frameWidth = source.width / settings.spriteCols;
+            const frameHeight = source.height / settings.spriteRows;
+            
+            const col = currentFrame % settings.spriteCols;
+            const row = Math.floor(currentFrame / settings.spriteCols);
+
+            ctx.drawImage(
+                source,
+                col * frameWidth, row * frameHeight, frameWidth, frameHeight,
+                layout.x, layout.y, layout.width, layout.height
             );
         });
     }
