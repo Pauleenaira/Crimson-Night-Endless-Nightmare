@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- CUSTOMIZATION AND ADJUSTMENT: Change the browser tab title here. -->
+    <title>Crimson Night: Endless Nightmare</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Run for survival through a burning city in Crimson Night: Endless Nightmare.">
+
+    <meta name="theme-color" content="#090b18">
+
+    <!-- CUSTOMIZATION AND ADJUSTMENT: Change the Open Graph title here. -->
+    <meta property="og:title" content="Crimson Night: Endless Nightmare">
+
+    <!-- CUSTOMIZATION AND ADJUSTMENT: Change the Open Graph description here. -->
+    <meta property="og:description" content="Escape the shadows and survive the burning city in this endless runner game.">
+
+    <meta property="og:type" content="website">
+
+    <!-- CUSTOMIZATION AND ADJUSTMENT: Replace this with your published game's public URL. -->
+    <meta property="og:url" content="https://example.com/crimson-night">
+
+    <!-- CUSTOMIZATION AND ADJUSTMENT: Replace this with a publicly accessible preview image URL. -->
+    <meta property="og:image" content="https://example.com/images/crimson-night-preview.png">
+
+    <!-- Game styles are stored in a separate file. -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Game functionality is stored in a separate file. -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <main class="game-shell">
+
+        <header class="game-header">
+
+            <!-- CUSTOMIZATION AND ADJUSTMENT: Change the main displayed game title here. -->
+            <h1 id="gameTitle">Crimson Night: Endless Nightmare</h1>
+
+            <!-- CUSTOMIZATION AND ADJUSTMENT: Change the game description here. -->
+            <p id="gameDescription">
+                The city is burning, the streets are crawling with shadows, and
+                there is nowhere left to hide. Take control of Yolca and run through the ruins of a city
+                consumed by fire. Leap over burning ground and evade terrifying
+                shadow monsters. Keep running, survive as long as possible, and
+                escape the endless nightmare.
+            </p>
+
+        </header>
+
+
+        <section class="game-container" aria-label="Endless runner game">
+
+            <div class="game-hud">
+
+                <div class="score-panel">
+                    <span class="score-label">SCORE</span>
+                    <span id="scoreDisplay" aria-live="polite">0</span>
+                </div>
+
+                <div class="score-panel">
+                    <span class="score-label">HIGH SCORE</span>
+                    <span id="highScoreDisplay" aria-live="polite">0</span>
+                </div>
+
+            </div>
+
+
+            <!-- Main game canvas: logical resolution is 960 by 450 pixels. -->
+            <div class="canvas-wrapper">
+
+                <canvas
+                    id="gameCanvas"
+                    width="960"
+                    height="450"
+                    aria-label="Crimson Night endless runner gameplay area"
+                    role="img"
+                >
+                    Your browser does not support HTML5 Canvas.
+                    Please use a modern web browser to play this game.
+                </canvas>
+
+
+                <!-- Start screen and Game Over overlay. -->
+                <div
+                    id="gameOverlay"
+                    class="game-overlay"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="overlayTitle"
+                >
+
+                    <div class="overlay-content">
+
+                        <h2 id="overlayTitle">Ready to Run?</h2>
+
+                        <p id="overlayMessage">
+                            The nightmare begins now. Help Yolca survive the
+                            burning city, dodge the shadows, and run as far
+                            as possible!
+                        </p>
+
+                        <!--
+                            CUSTOMIZATION AND ADJUSTMENT:
+                            Change the Start Game text directly here.
+                            Change the Restart Game text in the data attribute.
+                            JavaScript should reuse these values instead of
+                            hardcoding duplicate button labels.
+                        -->
+                        <button
+                            id="startButton"
+                            type="button"
+
+   
+                            data-start-text="Start Game"
+
+
+                            data-restart-text="Restart Game"
+                        >
+                            Start Game
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!--
+                Game Over text template.
+
+                CUSTOMIZATION AND ADJUSTMENT:
+                Change the Game Over heading and message here.
+                These HTML values are the source of truth for the Game Over
+                screen. The JavaScript can read this template when a run ends.
+            -->
+            <template id="gameOverCopy">
+
+                <h2>
+                    <!-- CUSTOMIZATION AND ADJUSTMENT: Change the Game Over heading here. -->
+                    Game Over
+                </h2>
+
+                <p>
+                    <!-- CUSTOMIZATION AND ADJUSTMENT: Change the Game Over message here. -->
+                    Yolca has been swallowed by the darkness. The nightmare
+                    continues, but every run is another chance to survive.
+                    Can you beat your previous high score?
+                </p>
+
+            </template>
+
+
+            <div class="game-status">
+
+                <span id="assetStatus" role="status" aria-live="polite">
+                    Shadows are taking shape. Prepare to run
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <section class="game-controls">
+
+            <h2>How to Play</h2>
+
+            <!-- CUSTOMIZATION AND ADJUSTMENT: Change the gameplay instructions here. -->
+            <p id="gameInstructions">
+                Help Yolca survive the burning city! She automatically runs
+                forward. Jump over ground fires and avoid the shadow monsters
+                to stay alive. The longer you survive, the higher your score.
+            </p>
+
+            <div class="control-instructions">
+
+                <div class="control-item">
+                    <span class="control-key">SPACE</span>
+                    <span>Jump</span>
+                </div>
+
+                <div class="control-item">
+                    <span class="control-key">↑</span>
+                    <span>Jump</span>
+                </div>
+
+                <div class="control-item">
+                    <span class="control-key">CLICK</span>
+                    <span>Jump</span>
+                </div>
+
+                <div class="control-item">
+                    <span class="control-key">TAP</span>
+                    <span>Jump</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="game-footer">
+            <p>Crimson Night: Endless Nightmare</p>
+            <p>Run. Survive. Escape the darkness.</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
