@@ -26,8 +26,8 @@ const CONFIG = {
         imageOffsetY: 0,        
         jumpStrength: 750,      
         gravity: 1750,          
-        hitboxPaddingX: 50,  
-        hitboxPaddingY: 40,
+        hitboxPaddingX: 30,  
+        hitboxPaddingY: 30,
         // --- SPRITE ANIMATION SETTINGS ---
         spriteCols: 5,          
         spriteRows: 2,          
@@ -59,7 +59,7 @@ const CONFIG = {
         imageOffsetY: 20,      
         groundOffset: 0,        
         hitboxPaddingX: 35,  
-        hitboxPaddingY: 5,
+        hitboxPaddingY: 15,
         // --- SPRITE ANIMATION SETTINGS ---
         spriteCols: 4,          // Monster grid is 4x2
         spriteRows: 2,          
@@ -114,7 +114,7 @@ const CONFIG = {
 
     // I. DEBUG — HITBOX VISUALIZATION
     debug: {
-        showHitboxes: false,   // Set true to display the actual collision rectangles.
+        showHitboxes: true,   // Set true to display the actual collision rectangles.
         runnerHitboxColor: "#00FF00",
         obstacleHitboxColor: "#FF0000",
         hitboxLineWidth: 2
