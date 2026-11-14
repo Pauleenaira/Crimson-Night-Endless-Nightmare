@@ -41,8 +41,8 @@ const CONFIG = {
         maxHeight: 200,        
         imageOffsetX: 0,        
         imageOffsetY: 20,      
-        groundOffset: 10,        
-        hitboxPaddingX: 30,  
+        groundOffset: 0,        
+        hitboxPaddingX: 25,  
         hitboxPaddingY: 15,
         // --- SPRITE ANIMATION SETTINGS ---
         spriteCols: 4,          // Campfire grid is 4x2
